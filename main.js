@@ -8,7 +8,7 @@
 
 var map = new maplibregl.Map({
   container: 'map',
-  style: 'style.json',
+  style: 'MapBaseV2.json?v=2',
   center: [-73.9973, 40.7308],   // [lng, lat] — WSP
   zoom: 16
 });
@@ -44,6 +44,16 @@ map.on('load', () => {
   geo.on('trackuserlocationend', () => {
     userPos = null;
     refresh();
+  });
+
+  // Locate the visitor automatically on load, so the "best bench" is always
+  // the nearest shaded one to wherever they are — no crosshair click needed.
+  // The browser still shows its one-time permission prompt, and geolocation
+  // only works over https:// or localhost (not file://).
+  map.once('idle', () => {
+    if (geo.trigger() === false) {
+      setTimeout(() => geo.trigger(), 500);   // control wasn't ready yet
+    }
   });
 
   // Straight-line metres. Within one park this is a fair approximation of

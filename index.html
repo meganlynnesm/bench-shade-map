@@ -39,6 +39,8 @@
         <p id="count">—</p>
         <p id="rule"></p>
         <p id="route-info">Click a bench for coffee</p>
+
+        <button id="about-btn" type="button">About this map</button>
       </div>
     </div>
 
@@ -66,7 +68,53 @@
       </div>
     </div>
 
+    <!-- About / description overlay -->
+    <div id="about-overlay" hidden>
+      <div id="about-card" role="dialog" aria-modal="true" aria-labelledby="about-title">
+        <button id="about-close" type="button" aria-label="Close">&times;</button>
+
+        <h3 id="about-title">Morning Coffee in the Shade</h3>
+        <p class="lead">Find a shaded bench in Washington Square Park for your morning coffee break.</p>
+
+        <p>Each dot is a bench, coloured by how much shade it gets for the
+          <strong>month</strong> and <strong>hour</strong> you pick. Set a
+          <strong>minimum shade</strong> level and the map highlights the
+          <strong>best bench</strong>: the shaded bench nearest to you if you
+          share your location, or the <i>shadiest</i> one if you don't.</p>
+
+        <p>Click any bench to draw the walking route to the nearest café open at
+          that hour.</p>
+
+        <p class="note">Shade is modelled for four months (Mar / Jun / Sep / Dec)
+          across a 7–11 a.m. window. Bench and shade data are paired. See the
+          legend for what each colour means.</p>
+
+      </div>
+    </div>
+
     <div id="map"></div>
     <script src="main.js"></script>
+    <script>
+      // About overlay: open / close (independent of the map)
+      (function () {
+        var overlay = document.getElementById('about-overlay');
+        var openBtn = document.getElementById('about-btn');
+        var closeBtn = document.getElementById('about-close');
+
+        function open() { overlay.hidden = false; }
+        function close() { overlay.hidden = true; }
+
+        openBtn.addEventListener('click', open);
+        closeBtn.addEventListener('click', close);
+        // click the dim backdrop (but not the card) to dismiss
+        overlay.addEventListener('click', function (e) {
+          if (e.target === overlay) close();
+        });
+        // Esc to dismiss
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && !overlay.hidden) close();
+        });
+      })();
+    </script>
   </body>
 </html>
