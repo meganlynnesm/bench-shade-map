@@ -1,21 +1,19 @@
 // =====================================================================
 // Morning Coffee in the Shade — Washington Square Park
+//
+// Data generated: 4 months (3/6/9/12), hours 7–11, 20-minute break window.
+// Regenerate bench_shade.json and benches.geojson together — the bench_id
+// keys must match or the shade lookup silently returns nothing.
 // =====================================================================
 
 var map = new maplibregl.Map({
   container: 'map',
-  style: 'MapBaseV2.json?v=2',
+  style: 'style.json',
   center: [-73.9973, 40.7308],   // [lng, lat] — WSP
   zoom: 16
 });
 
 map.addControl(new maplibregl.NavigationControl());
-
-map.addControl(new maplibregl.GeolocateControl({
-  positionOptions: { enableHighAccuracy: true },
-  trackUserLocation: true,
-  showUserLocation: true
-}));
 
 
 map.on('load', () => {
@@ -25,8 +23,40 @@ map.on('load', () => {
   let shadeData = null;
   let routeData = null;
   let selectedBench = null;
+  let userPos = null;            // [lng, lat] once the visitor locates themselves
 
   let state = { month: 6, hour: 9, thresh: 0.5 };
+
+
+  // ---- geolocation ----------------------------------------------------
+  const geo = new maplibregl.GeolocateControl({
+    positionOptions: { enableHighAccuracy: true },
+    trackUserLocation: true,
+    showUserLocation: true
+  });
+  map.addControl(geo);
+
+  geo.on('geolocate', (e) => {
+    userPos = [e.coords.longitude, e.coords.latitude];
+    refresh();
+  });
+
+  geo.on('trackuserlocationend', () => {
+    userPos = null;
+    refresh();
+  });
+
+  // Straight-line metres. Within one park this is a fair approximation of
+  // walking distance; across the wider walkshed it would not be.
+  function metresBetween(a, b) {
+    const R = 6371000, rad = Math.PI / 180;
+    const dLat = (b[1] - a[1]) * rad;
+    const dLon = (b[0] - a[0]) * rad;
+    const la1 = a[1] * rad, la2 = b[1] * rad;
+    const h = Math.sin(dLat / 2) ** 2 +
+              Math.cos(la1) * Math.cos(la2) * Math.sin(dLon / 2) ** 2;
+    return 2 * R * Math.asin(Math.sqrt(h));
+  }
 
 
   // ---- shade lookup ---------------------------------------------------
@@ -39,17 +69,18 @@ map.on('load', () => {
 
 
   // ---- recolour every bench for the current month / hour / threshold ---
+  // The rule is a filter chain, not a weighted score:
+  //   1. keep benches shaded at or above the threshold
+  //   2. of those, pick the nearest to the visitor — or the shadiest if
+  //      we don't know where they are.
   function updateBenches() {
     if (!benchData || !shadeData) return;
 
     let shadedCount = 0;
     let missing = 0;
-    let bestId = null;
-    let bestShade = -1;
 
     benchData.features.forEach((f) => {
       const shade = getShade(f.properties.bench_id, state.month, state.hour);
-
       f.properties.isBest = false;
 
       if (shade === null) {
@@ -60,28 +91,46 @@ map.on('load', () => {
         f.properties.shade = shade;
         f.properties.isShaded = shade >= state.thresh;
         if (f.properties.isShaded) shadedCount++;
-        if (shade > bestShade) {
-          bestShade = shade;
-          bestId = f.properties.bench_id;
-        }
       }
     });
 
-    // only crown a winner if it actually clears the threshold
-    if (bestId !== null && bestShade >= state.thresh) {
-      benchData.features.forEach((f) => {
-        if (f.properties.bench_id === bestId) f.properties.isBest = true;
-      });
+    const shaded = benchData.features.filter((f) => f.properties.isShaded);
+    let winner = null;
+
+    if (shaded.length) {
+      if (userPos) {
+        winner = shaded.reduce((best, f) =>
+          metresBetween(userPos, f.geometry.coordinates) <
+          metresBetween(userPos, best.geometry.coordinates) ? f : best);
+      } else {
+        winner = shaded.reduce((best, f) =>
+          f.properties.shade > best.properties.shade ? f : best);
+      }
+      winner.properties.isBest = true;
     }
 
     map.getSource('benches').setData(benchData);
 
+    // ---- panel readout ----
     const label = document.getElementById('count');
+    const rule = document.getElementById('rule');
+
     if (missing === benchData.features.length) {
       label.textContent = 'No data for this month and hour';
+      rule.textContent = '';
+      return;
+    }
+
+    label.textContent = shadedCount + ' of ' +
+      (benchData.features.length - missing) + ' benches shaded';
+
+    if (!shaded.length) {
+      rule.textContent = 'No bench meets the shade threshold';
+    } else if (userPos) {
+      const d = Math.round(metresBetween(userPos, winner.geometry.coordinates));
+      rule.textContent = 'Pick: nearest shaded bench to you — ' + d + ' m away';
     } else {
-      label.textContent = shadedCount + ' of ' +
-        (benchData.features.length - missing) + ' benches shaded';
+      rule.textContent = 'Pick: shadiest bench · press the crosshair to use your location';
     }
   }
 
@@ -90,14 +139,8 @@ map.on('load', () => {
   function showRoute(benchId) {
     const info = document.getElementById('route-info');
 
-    if (!routeData) {
-      info.textContent = 'Routes still loading…';
-      return;
-    }
-    if (!routeData[benchId]) {
-      info.textContent = 'No route data for this bench';
-      return;
-    }
+    if (!routeData) { info.textContent = 'Routes still loading…'; return; }
+    if (!routeData[benchId]) { info.textContent = 'No route data for this bench'; return; }
 
     const open = routeData[benchId].filter(
       (r) => !r.opens || Number(r.opens.split(':')[0]) <= state.hour
@@ -125,10 +168,7 @@ map.on('load', () => {
   }
 
   function clearRoute() {
-    map.getSource('route').setData({
-      type: 'FeatureCollection',
-      features: []
-    });
+    map.getSource('route').setData({ type: 'FeatureCollection', features: [] });
   }
 
 
@@ -151,29 +191,23 @@ map.on('load', () => {
       id: 'route-layer',
       type: 'line',
       source: 'route',
-      layout: {
-        'line-cap': 'round',
-        'line-join': 'round'
-      },
+      layout: { 'line-cap': 'round', 'line-join': 'round' },
       paint: {
-        'line-color': '#CFD11A',      // Lemon Lime — walking route
+        'line-color': '#18486B',      // Yale Blue
         'line-width': 4,
-        'line-opacity': 0.9
+        'line-opacity': 0.8
       }
     });
 
     // --- cafes (middle) ---
-    map.addSource('cafes', {
-      type: 'geojson',
-      data: 'cafes.geojson'
-    });
+    map.addSource('cafes', { type: 'geojson', data: 'cafes.geojson' });
 
     map.addLayer({
       id: 'cafes-layer',
       type: 'circle',
       source: 'cafes',
       paint: {
-        'circle-radius': 9,               // match the best-bench marker
+        'circle-radius': 7,
         'circle-color': '#18486B',        // Yale Blue
         'circle-stroke-width': 1.5,
         'circle-stroke-color': '#F3EDDE'  // Old Lace
@@ -222,8 +256,7 @@ map.on('load', () => {
     .then((r) => r.json())
     .then((d) => { routeData = d; })
     .catch(() => {
-      document.getElementById('route-info').textContent =
-        'routes.json not found';
+      document.getElementById('route-info').textContent = 'routes.json not found';
     });
 
 
@@ -237,15 +270,19 @@ map.on('load', () => {
       selectedBench = props.bench_id;
       showRoute(selectedBench);
 
+      let html = '<strong>' + props.bench_id + '</strong><br>' +
+        (props.shade < 0
+          ? 'no data'
+          : Math.round(props.shade * 100) + '% shaded') +
+        '<br>source: ' + props.source;
+
+      if (userPos) {
+        html += '<br>' + Math.round(metresBetween(userPos, coordinates)) + ' m from you';
+      }
+
       new maplibregl.Popup()
         .setLngLat(coordinates)
-        .setHTML(
-          '<strong>' + props.bench_id + '</strong><br>' +
-          (props.shade < 0
-            ? 'no data'
-            : Math.round(props.shade * 100) + '% shaded') +
-          '<br>source: ' + props.source
-        )
+        .setHTML(html)
         .addTo(map);
     });
 
