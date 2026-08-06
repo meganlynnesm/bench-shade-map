@@ -1,0 +1,80 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {"cafe_id": "cafe_01", "name": "Caffe Reggio", "opens": "09:00"},
+      "geometry": {"type": "Point", "coordinates": [-74.0004, 40.7302]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"cafe_id": "cafe_02", "name": "Tartinery Cafe", "opens": "08:00"},
+      "geometry": {"type": "Point", "coordinates": [-73.9987, 40.7296]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"cafe_id": "cafe_03", "name": "Coppola Cafe", "opens": "06:00"},
+      "geometry": {"type": "Point", "coordinates": [-74.0015, 40.7323]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"cafe_id": "cafe_04", "name": "Mille-Feuille Cafe", "opens": "07:30"},
+      "geometry": {"type": "Point", "coordinates": [-73.9982, 40.7289]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"cafe_id": "cafe_05", "name": "Stumptown Coffee Roasters", "opens": "06:30"},
+      "geometry": {"type": "Point", "coordinates": [-73.9979, 40.7328]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"cafe_id": "cafe_06", "name": "Carmela Coffee", "opens": "08:00"},
+      "geometry": {"type": "Point", "coordinates": [-73.9959, 40.7323]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"cafe_id": "cafe_07", "name": "Coffee Rx", "opens": "07:00"},
+      "geometry": {"type": "Point", "coordinates": [-73.9944, 40.7314]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"cafe_id": "cafe_08", "name": "Whistle and Fizz", "opens": "07:30"},
+      "geometry": {"type": "Point", "coordinates": [-73.9945, 40.7306]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"cafe_id": "cafe_09", "name": "Spring Cafe Aspen", "opens": "07:00"},
+      "geometry": {"type": "Point", "coordinates": [-73.9946, 40.7286]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"cafe_id": "cafe_10", "name": "Think Coffee", "opens": "07:00"},
+      "geometry": {"type": "Point", "coordinates": [-73.9953, 40.7284]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"cafe_id": "cafe_11", "name": "Blank Street", "opens": "06:30"},
+      "geometry": {"type": "Point", "coordinates": [-73.9944, 40.7281]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"cafe_id": "cafe_12", "name": "Moshava Coffee", "opens": "08:00"},
+      "geometry": {"type": "Point", "coordinates": [-73.9985, 40.7331]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"cafe_id": "cafe_13", "name": "ARVACI Coffee", "opens": "07:00"},
+      "geometry": {"type": "Point", "coordinates": [-74.0005, 40.7306]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"cafe_id": "cafe_14", "name": "So Good Coffee", "opens": "07:00"},
+      "geometry": {"type": "Point", "coordinates": [-74.0015, 40.7293]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"cafe_id": "cafe_15", "name": "Lafayette Grand Cafe", "opens": "08:00"},
+      "geometry": {"type": "Point", "coordinates": [-73.9934, 40.7274]}
+    }
+  ]
+}
