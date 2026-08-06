@@ -1,10 +1,165 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 #map {
   width: 100%;
   height: 100vh;
+}
+
+/* =============================================================
+   Left column: title stacked above the control panel
+   ============================================================= */
+#left-stack {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1;
+  width: 232px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ---- title (inside the panel box) ---- */
+#map-title {
+  margin: 0 0 16px 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #CFD11A;   /* Lemon Lime accent */
+  color: #1C0103;                     /* Coffee Bean */
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* =============================================================
+   Shared card look — panel + legend
+   ============================================================= */
+#panel,
+#legend {
+  background: #F3EDDE;            /* Old Lace */
+  border: 1px solid #1C0103;     /* Coffee Bean */
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(28, 1, 3, 0.22);
+  color: #1C0103;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* =============================================================
+   Control panel
+   ============================================================= */
+#panel {
+  padding: 16px;
+}
+
+.field { margin-bottom: 16px; }
+.field:last-of-type { margin-bottom: 12px; }
+
+#panel label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #436D49;                /* muted green for labels */
+}
+#panel label span {
+  color: #1C0103;
+  font-size: 12px;
+}
+
+/* month buttons */
+#months {
+  display: flex;
+  gap: 6px;
+}
+#panel button {
+  flex: 1;
+  padding: 6px 0;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #1C0103;
+  background: transparent;
+  border: 1px solid #1C0103;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+#panel button:hover { background: rgba(67, 109, 73, 0.15); }
+#panel button.active {
+  background: #436D49;
+  border-color: #436D49;
+  color: #F3EDDE;
+}
+
+/* sliders */
+#panel input[type=range] {
+  width: 100%;
+  margin: 0;
+  accent-color: #436D49;
+  cursor: pointer;
+}
+
+/* readouts */
+#count,
+#route-info {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.4;
+}
+#count {
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+#route-info { color: #18486B; }   /* Yale Blue */
+
+/* =============================================================
+   Legend — bottom-left
+   ============================================================= */
+#legend {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1;
+  padding: 14px 16px;
+  font-size: 11px;
+}
+
+#legend h4 {
+  margin: 0 0 10px 0;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.legend-row {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.swatch {
+  display: inline-block;
+  margin-right: 10px;
+  flex: none;
+}
+.swatch.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid;
+}
+.swatch.line {
+  width: 22px;
+  height: 4px;
+  border-radius: 2px;
 }

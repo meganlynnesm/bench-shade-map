@@ -9,6 +9,59 @@
     <link href="style.css" rel="stylesheet" />
   </head>
   <body>
+    <div id="left-stack">
+      <div id="panel">
+        <div id="map-title">Morning Coffee in the Shade</div>
+
+        <div class="field">
+          <label>Month</label>
+          <div id="months">
+            <button data-month="3">Mar</button>
+            <button data-month="6" class="active">Jun</button>
+            <button data-month="9">Sep</button>
+            <button data-month="12">Dec</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Coffee break start <span id="hour-label">9:00</span></label>
+          <input type="range" id="hour" min="7" max="11" value="9" step="1">
+        </div>
+
+        <div class="field">
+          <label>Min shade <span id="thresh-label">50%</span></label>
+          <input type="range" id="thresh" min="0" max="100" value="50" step="5">
+        </div>
+
+        <p id="count">—</p>
+        <p id="route-info">Click a bench for coffee</p>
+      </div>
+    </div>
+
+    <div id="legend">
+      <h4>Legend</h4>
+      <div class="legend-row">
+        <span class="swatch dot" style="background:#CFD11A; border-color:#1C0103;"></span>
+        Best bench (most shade)
+      </div>
+      <div class="legend-row">
+        <span class="swatch dot" style="background:#1C0103; border-color:#F3EDDE;"></span>
+        Bench in shade
+      </div>
+      <div class="legend-row">
+        <span class="swatch dot" style="background:#F3EDDE; border-color:#1C0103;"></span>
+        Bench in sun
+      </div>
+      <div class="legend-row">
+        <span class="swatch dot" style="background:#18486B; border-color:#F3EDDE;"></span>
+        Cafe
+      </div>
+      <div class="legend-row">
+        <span class="swatch line" style="background:#CFD11A;"></span>
+        Walking route
+      </div>
+    </div>
+
     <div id="map"></div>
     <script src="main.js"></script>
   </body>
