@@ -1,6 +1,6 @@
 var map = new maplibregl.Map({
   container: 'map',                                    // the div's id
-  style: 'style.json',  // temporary basemap
+  style: 'style.json',  
   center: [-73.9973, 40.7308],                         // [lng, lat] — WSP
   zoom: 16
 });
