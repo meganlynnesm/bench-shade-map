@@ -4,7 +4,7 @@
 
 var map = new maplibregl.Map({
   container: 'map',
-  style: 'MapBaseV2.json',
+  style: 'MapBaseV2.json?v=2',
   center: [-73.9973, 40.7308],   // [lng, lat] — WSP
   zoom: 16
 });
