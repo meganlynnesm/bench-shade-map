@@ -4,77 +4,77 @@
     {
       "type": "Feature",
       "properties": {"cafe_id": "cafe_01", "name": "Caffe Reggio", "opens": "09:00"},
-      "geometry": {"type": "Point", "coordinates": [-74.0004, 40.7302]}
+      "geometry": {"type": "Point", "coordinates": [-74.0005285, 40.7300392]}
     },
     {
       "type": "Feature",
       "properties": {"cafe_id": "cafe_02", "name": "Tartinery Cafe", "opens": "08:00"},
-      "geometry": {"type": "Point", "coordinates": [-73.9987, 40.7296]}
+      "geometry": {"type": "Point", "coordinates": [-73.9987016, 40.7296687]}
     },
     {
       "type": "Feature",
       "properties": {"cafe_id": "cafe_03", "name": "Coppola Cafe", "opens": "06:00"},
-      "geometry": {"type": "Point", "coordinates": [-74.0015, 40.7323]}
+      "geometry": {"type": "Point", "coordinates": [-74.0016469, 40.7323866]}
     },
     {
       "type": "Feature",
       "properties": {"cafe_id": "cafe_04", "name": "Mille-Feuille Cafe", "opens": "07:30"},
-      "geometry": {"type": "Point", "coordinates": [-73.9982, 40.7289]}
+      "geometry": {"type": "Point", "coordinates": [-73.997882, 40.7292042]}
     },
     {
       "type": "Feature",
       "properties": {"cafe_id": "cafe_05", "name": "Stumptown Coffee Roasters", "opens": "06:30"},
-      "geometry": {"type": "Point", "coordinates": [-73.9979, 40.7328]}
+      "geometry": {"type": "Point", "coordinates": [-73.9979763, 40.7328733]}
     },
     {
       "type": "Feature",
       "properties": {"cafe_id": "cafe_06", "name": "Carmela Coffee", "opens": "08:00"},
-      "geometry": {"type": "Point", "coordinates": [-73.9959, 40.7323]}
+      "geometry": {"type": "Point", "coordinates": [-73.9960838, 40.7324651]}
     },
     {
       "type": "Feature",
       "properties": {"cafe_id": "cafe_07", "name": "Coffee Rx", "opens": "07:00"},
-      "geometry": {"type": "Point", "coordinates": [-73.9944, 40.7314]}
+      "geometry": {"type": "Point", "coordinates": [-73.9941433, 40.7312558]}
     },
     {
       "type": "Feature",
       "properties": {"cafe_id": "cafe_08", "name": "Whistle and Fizz", "opens": "07:30"},
-      "geometry": {"type": "Point", "coordinates": [-73.9945, 40.7306]}
+      "geometry": {"type": "Point", "coordinates": [-73.9947271, 40.7303896]}
     },
     {
       "type": "Feature",
       "properties": {"cafe_id": "cafe_09", "name": "Spring Cafe Aspen", "opens": "07:00"},
-      "geometry": {"type": "Point", "coordinates": [-73.9946, 40.7286]}
+      "geometry": {"type": "Point", "coordinates": [-73.9942945, 40.7285179]}
     },
     {
       "type": "Feature",
       "properties": {"cafe_id": "cafe_10", "name": "Think Coffee", "opens": "07:00"},
-      "geometry": {"type": "Point", "coordinates": [-73.9953, 40.7284]}
+      "geometry": {"type": "Point", "coordinates": [-73.9954769, 40.7282234]}
     },
     {
       "type": "Feature",
       "properties": {"cafe_id": "cafe_11", "name": "Blank Street", "opens": "06:30"},
-      "geometry": {"type": "Point", "coordinates": [-73.9944, 40.7281]}
+      "geometry": {"type": "Point", "coordinates": [-73.9942097, 40.7283241]}
     },
     {
       "type": "Feature",
       "properties": {"cafe_id": "cafe_12", "name": "Moshava Coffee", "opens": "08:00"},
-      "geometry": {"type": "Point", "coordinates": [-73.9985, 40.7331]}
+      "geometry": {"type": "Point", "coordinates": [-73.998099, 40.7329201]}
     },
     {
       "type": "Feature",
       "properties": {"cafe_id": "cafe_13", "name": "ARVACI Coffee", "opens": "07:00"},
-      "geometry": {"type": "Point", "coordinates": [-74.0005, 40.7306]}
+      "geometry": {"type": "Point", "coordinates": [-74.0002199, 40.7304127]}
     },
     {
       "type": "Feature",
       "properties": {"cafe_id": "cafe_14", "name": "So Good Coffee", "opens": "07:00"},
-      "geometry": {"type": "Point", "coordinates": [-74.0015, 40.7293]}
+      "geometry": {"type": "Point", "coordinates": [-74.0012957, 40.7291501]}
     },
     {
       "type": "Feature",
       "properties": {"cafe_id": "cafe_15", "name": "Lafayette Grand Cafe", "opens": "08:00"},
-      "geometry": {"type": "Point", "coordinates": [-73.9934, 40.7274]}
+      "geometry": {"type": "Point", "coordinates": [-73.9934047, 40.7273993]}
     }
   ]
 }
